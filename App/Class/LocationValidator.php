@@ -8,7 +8,7 @@ class LocationValidator
         $R = 6371;
 
 
-    public function __construct($officeLatitude, $officeLongitude, Presence $presence)
+    public function __construct($officeLatitude = -6.1937129682507965, $officeLongitude = 106.86256730984925, Presence $presence)
     {
         $this->officeLatitude = deg2rad($officeLatitude);
         $this->officeLongitude = deg2rad($officeLongitude);

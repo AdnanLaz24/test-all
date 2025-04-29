@@ -9,21 +9,21 @@ class Presence
         $latitude,
         $longtitude,
         $timestamp,
-        $isValidLocation;
+        $locationValidator;
 
-    public function __construct(Employes $employes, $foto = "foto", $latitude = 0, $longtitude = 0, $timestamp = 0, $isValidLocation = true)
+    public function __construct(Employes $employes, $foto = "path/to/foto.jpg", $latitude = 0, $longtitude = 0, $timestamp = 0, LocationValidator $locationValidator)
     {
         $this->employes = $employes;
         $this->foto = $foto;
         $this->latitude = $latitude;
         $this->longtitude = $longtitude;
         $this->timestamp = $timestamp;
-        $this->isValidLocation = $isValidLocation;
+        $this->locationValidator = $locationValidator;
     }
 
     public function save()
     {
-        $str = "INSERT INTO presensi VALUES ('{$this->employes->getId()}','{$this->employes->getName()}','$this->foto','$this->latitude','$this->longtitude','$this->timestamp','$this->isValidLocation')";
+        $str = "INSERT INTO presensi VALUES ('{$this->employes->getId()}','{$this->employes->getName()}','$this->foto','$this->latitude','$this->longtitude','$this->timestamp','{$this->locationValidator->isValidLocation()}')";
         return $str;
     }
 
@@ -35,5 +35,10 @@ class Presence
     public function getLongTitude()
     {
         return $this->longtitude;
+    }
+
+    public function getDataPresensi()
+    {
+        return "{$this->getLatitude()}";
     }
 }

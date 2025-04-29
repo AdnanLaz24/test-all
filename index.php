@@ -1,32 +1,3 @@
-<?php
-
-require_once "App/init.php";
-
-
-$employes = new Employes("001", "Ahmad");
-
-// Mengatur data presensi
-$foto = "path/to/foto.jpg";
-$latitude = -6.193373232814059;
-$longitude = 106.86313403739301;
-$timestamp = time();
-$isValidLocation = true;
-
-
-
-// Lokasi kantor
-$officeLatitude = -6.1937129682507965;
-$officeLongitude = 106.86256730984925;
-
-// Aturan Presensi
-$maxJarak = 0.1;
-
-
-$presence = new Presence($employes, $foto, $latitude, $longitude, $timestamp, $isValidLocation);
-$distanceCalculator = new LocationValidator($officeLatitude, $officeLongitude, $presence);
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,10 +17,11 @@ $distanceCalculator = new LocationValidator($officeLatitude, $officeLongitude, $
         <label for="longtitude">Longtitude</label>
         <input type="text" name="longtitude">
 
-        <button type="submit">Kirim</button>
+        <label for="longtitude">Time Stamp Foto</label>
+        <input type="text" name="timestamp">
+
+        <button type="submit" name="kirim">Kirim</button>
     </form>
-
-
 </body>
 
 </html>
