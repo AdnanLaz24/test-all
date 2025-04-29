@@ -1,30 +1,33 @@
 <?php
 
-
 class Presence
 {
     private
         $employes,
         $foto,
         $latitude,
-        $longtitude,
+        $longitude,
         $timestamp,
         $locationValidator;
 
-    public function __construct(Employes $employes, $foto = "path/to/foto.jpg", $latitude = 0, $longtitude = 0, $timestamp = 0, LocationValidator $locationValidator)
+    public function __construct($employes, $foto, $latitude, $longitude, $timestamp, ?LocationValidator $locationValidator)
     {
         $this->employes = $employes;
         $this->foto = $foto;
         $this->latitude = $latitude;
-        $this->longtitude = $longtitude;
+        $this->longitude = $longitude;
         $this->timestamp = $timestamp;
         $this->locationValidator = $locationValidator;
     }
 
     public function save()
     {
-        $str = "INSERT INTO presensi VALUES ('{$this->employes->getId()}','{$this->employes->getName()}','$this->foto','$this->latitude','$this->longtitude','$this->timestamp','{$this->locationValidator->isValidLocation()}')";
-        return $str;
+        $str = "Name: {$this->employes->getName()}, Foto: {$this->foto}, Latitude: {$this->latitude}, Longitude: {$this->longitude}, Timestamp: {$this->timestamp}, Location Valid: {$this->locationValidator->isValidLocation()}";
+        if ($this->locationValidator->isValidLocation() == true) {
+            return $str . "|| Anda Berhasil Presensi";
+        } elseif ($this->locationValidator->isValidLocation() == false) {
+            return $str . "|| Gagal Presensi";
+        }
     }
 
     public function getLatitude()
@@ -32,9 +35,9 @@ class Presence
         return $this->latitude;
     }
 
-    public function getLongTitude()
+    public function getLongitude()
     {
-        return $this->longtitude;
+        return $this->longitude;
     }
 
     public function getDataPresensi()
